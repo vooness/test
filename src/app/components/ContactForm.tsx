@@ -44,7 +44,7 @@ const ContactForm: React.FC = () => {
             Get in <span className="text-orange-500">Touch</span>
           </h2>
           <p className="text-gray-400 text-lg mt-4">
-            Have a project in mind? Let's collaborate and make something amazing
+            Have a project in mind? Let&apos;s collaborate and make something amazing
             together.
           </p>
         </motion.div>

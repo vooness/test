@@ -22,7 +22,7 @@ export const HeroSection = () => {
               Frontend & Graphic Designer
             </p>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight relative">
-              Hello, I'm{" "}
+              Hello, I&apos;m{" "}
               <span className="relative">
                 <span className="bg-gradient-to-r from-orange-500 to-yellow-500 text-transparent bg-clip-text">
                   Le Artist

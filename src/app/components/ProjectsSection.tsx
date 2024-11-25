@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image"; // Importujte Image z next/image
 
 const ProjectsSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"WebDesign" | "GraphicDesign" | "VideoEditing">("WebDesign");
@@ -9,7 +10,7 @@ const ProjectsSection: React.FC = () => {
   return (
     <section className="bg-black text-white py-20 px-6">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
+        {/* Sekce záhlaví */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -20,7 +21,7 @@ const ProjectsSection: React.FC = () => {
             Projects I{" "}
             <span className="relative">
               Worked On
-              {/* Underline Animation */}
+              {/* Animace podtržení */}
               <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
@@ -36,7 +37,7 @@ const ProjectsSection: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Tabs */}
+        {/* Karty */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -59,7 +60,7 @@ const ProjectsSection: React.FC = () => {
                   : tab === "GraphicDesign"
                   ? "Graphic Design"
                   : "Video Editing"}
-                {/* Gradient Reveal */}
+                {/* Gradientní přechod */}
                 <span
                   className={`absolute inset-0 z-[-1] transition-all duration-500 ${
                     activeTab === tab
@@ -72,8 +73,8 @@ const ProjectsSection: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="max-w-5xl mx-auto">
+       {/* Projekty */}
+       <div className="max-w-5xl mx-auto">
           {/* Web Design */}
           {activeTab === "WebDesign" && (
             <motion.div
@@ -82,6 +83,7 @@ const ProjectsSection: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
+              {/* Zde jsou všechny vaše webové projekty */}
               <ProjectCardWithLink
                 title="Modern Portfolio Website"
                 image="/imgs/web-6.jpg"
@@ -110,6 +112,7 @@ const ProjectsSection: React.FC = () => {
                 comment="Client: Blogger | Built with Next.js"
                 url="https://blog-example.com"
               />
+              {/* Přidejte další projekty zde, pokud máte */}
             </motion.div>
           )}
 
@@ -205,7 +208,13 @@ interface ProjectCardWithLinkProps {
   url: string;
 }
 
-const ProjectCardWithLink: React.FC<ProjectCardWithLinkProps> = ({ title, image, description, comment, url }) => (
+const ProjectCardWithLink: React.FC<ProjectCardWithLinkProps> = ({
+  title,
+  image,
+  description,
+  comment,
+  url,
+}) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -213,11 +222,12 @@ const ProjectCardWithLink: React.FC<ProjectCardWithLinkProps> = ({ title, image,
     className="relative group bg-gray-900 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
   >
     <a href={url} target="_blank" rel="noopener noreferrer">
-      <div className="aspect-w-16 aspect-h-9">
-        <img
+      <div className="aspect-w-16 aspect-h-9 relative">
+        <Image
           src={image}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          fill // Použijeme prop 'fill' pro vyplnění rodičovského elementu
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
@@ -237,7 +247,12 @@ interface ProjectCardVerticalProps {
   comment: string;
 }
 
-const ProjectCardVertical: React.FC<ProjectCardVerticalProps> = ({ title, video, description, comment }) => (
+const ProjectCardVertical: React.FC<ProjectCardVerticalProps> = ({
+  title,
+  video,
+  description,
+  comment,
+}) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -269,18 +284,26 @@ interface ProjectCardSquareProps {
   comment: string;
 }
 
-const ProjectCardSquare: React.FC<ProjectCardSquareProps> = ({ title, image, description, comment }) => (
+const ProjectCardSquare: React.FC<ProjectCardSquareProps> = ({
+  title,
+  image,
+  description,
+  comment,
+}) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
     className="relative group bg-gray-900 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
   >
-    <img
-      src={image}
-      alt={title}
-      className="w-full h-full object-cover aspect-square transition-transform duration-300 group-hover:scale-105"
-    />
+    <div className="relative w-full h-full aspect-square">
+      <Image
+        src={image}
+        alt={title}
+        fill // Použijeme prop 'fill' pro vyplnění rodičovského elementu
+        className="object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </div>
     <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
       <h3 className="font-bold text-lg mb-1">{title}</h3>
       <p className="text-sm text-gray-300">{description}</p>
