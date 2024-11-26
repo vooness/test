@@ -35,12 +35,11 @@ const SkillSection = () => {
       { breakpoint: 1024, settings: { slidesToShow: 2 } },
       { breakpoint: 768, settings: { slidesToShow: 1 } },
     ],
-    // Custom dots class with added margin
     appendDots: (dots: React.ReactNode) => (
       <div
         style={{
           marginTop: "-50px",
-          marginBottom: "20px", // Added margin bottom
+          marginBottom: "20px",
         }}
       >
         <ul style={{ margin: "0px" }}> {dots} </ul>
@@ -69,7 +68,6 @@ const SkillSection = () => {
     },
   };
 
-  // Animated background using Framer Motion
   const [ref, inView] = useInView({ triggerOnce: true });
   const backgroundControls = useAnimation();
 
@@ -95,7 +93,6 @@ const SkillSection = () => {
       ref={ref}
       className="relative bg-gray-900 text-white py-20 px-6 overflow-hidden"
     >
-      {/* Animated Background */}
       <motion.div
         className="absolute inset-0 w-full h-full z-0 pointer-events-none"
         variants={backgroundVariants}
@@ -104,7 +101,6 @@ const SkillSection = () => {
       ></motion.div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -122,7 +118,6 @@ const SkillSection = () => {
           A showcase of my core competencies and expertise.
         </motion.p>
 
-        {/* Slider Component */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -157,13 +152,14 @@ const SkillItem = ({ skill }: { skill: { name: string; value: number } }) => {
     visible: { opacity: 1, scale: 1 },
   };
 
-  const progressVariants = {
-    hidden: { value: 0 },
-    visible: {
-      value: skill.value,
-      transition: { duration: 1 },
-    },
-  };
+  const [progressValue, setProgressValue] = React.useState(0);
+
+  React.useEffect(() => {
+    if (inViewItem) {
+      const timeout = setTimeout(() => setProgressValue(skill.value), 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [inViewItem, skill.value]);
 
   return (
     <motion.div
@@ -174,29 +170,25 @@ const SkillItem = ({ skill }: { skill: { name: string; value: number } }) => {
       className="flex justify-center"
     >
       <div className="flex flex-col items-center">
-        {/* Circular Progressbar */}
-        <motion.div variants={progressVariants} initial="hidden" animate="visible">
-          <div className="w-40 h-40 mb-4">
-            <CircularProgressbarWithChildren
-              value={skill.value}
-              styles={buildStyles({
-                textColor: "#fff",
-                pathColor: "rgba(255, 255, 255, 1)",
-                trailColor: "#333",
-                textSize: "16px",
-              })}
-            >
-              {/* Animated Number */}
-              <AnimatedNumber target={skill.value} />
-            </CircularProgressbarWithChildren>
-          </div>
-        </motion.div>
+        <div className="w-40 h-40 mb-4">
+          <CircularProgressbarWithChildren
+            value={progressValue}
+            styles={buildStyles({
+              textColor: "#fff",
+              pathColor: "rgba(255, 255, 255, 1)",
+              trailColor: "#333",
+              textSize: "16px",
+            })}
+          >
+            <AnimatedNumber target={progressValue} />
+          </CircularProgressbarWithChildren>
+        </div>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="font-semibold text-center"
-          style={{ fontSize: "1.5rem" }} // Set font size to 1.5rem
+          style={{ fontSize: "1.5rem" }}
         >
           {skill.name}
         </motion.p>
@@ -210,7 +202,7 @@ const AnimatedNumber = ({ target }: { target: number }) => {
 
   React.useEffect(() => {
     let start = 0;
-    const duration = 1000; // Animation duration in milliseconds
+    const duration = 1000;
     const step = (timestamp: number) => {
       if (!start) start = timestamp;
       const progress = timestamp - start;
