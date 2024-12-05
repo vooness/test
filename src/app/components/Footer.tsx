@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
         <div>
           <h3 className="text-white text-xl font-semibold mb-4">About Us</h3>
           <p className="text-gray-400">
-            We are a team of passionate designers and developers committed to creating exceptional digital experiences.
+            I am passionate designer and developer committed to creating exceptional digital experiences.
           </p>
         </div>
 
@@ -72,8 +72,8 @@ const Footer: React.FC = () => {
         {/* Contact Information */}
         <div>
           <h3 className="text-white text-xl font-semibold mb-4">Contact Us</h3>
-          <p className="text-gray-400">Email: info@example.com</p>
-          <p className="text-gray-400">Phone: +123 456 7890</p>
+          <p className="text-gray-400">Email: vooness@stream.cz</p>
+          <p className="text-gray-400">Phone: +605 707 036</p>
           <div className="flex space-x-4 mt-4">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors duration-300">
               <FaFacebookF size={20} />

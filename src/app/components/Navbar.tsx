@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [language, setLanguage] = useState("ENG"); // Default language
-  const [status, setStatus] = useState(true); // Online status
+  const [language, setLanguage] = useState("ENG");
+  const [status, setStatus] = useState(true);
 
-  // Detect scroll to toggle navbar visibility
+  // Detect scroll to toggle navbar background
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -21,11 +21,20 @@ const Navbar = () => {
     };
   }, []);
 
+  // Prevent body scroll when the mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpen]);
+
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-secondary/60 backdrop-blur-md shadow-lg"
+          ? "bg-black/70 backdrop-blur-md shadow-md"
           : "bg-transparent"
       }`}
     >
@@ -38,7 +47,7 @@ const Navbar = () => {
           Le Artist
         </a>
 
-        {/* Desktop menu */}
+        {/* Desktop Menu */}
         <ul className="hidden lg:flex items-center gap-8">
           <li>
             <a
@@ -55,15 +64,6 @@ const Navbar = () => {
               className="relative group text-white transition duration-300"
             >
               Work
-              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#contact"
-              className="relative group text-white transition duration-300"
-            >
-              Contact
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
             </a>
           </li>
@@ -96,8 +96,6 @@ const Navbar = () => {
           >
             ENG
           </button>
-
-          {/* Online Status */}
           <div className="flex items-center gap-2">
             <span
               className={`w-3 h-3 rounded-full ${
@@ -108,7 +106,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Contact Me Button */}
+        {/* Contact Button */}
         <a
           href="#contact"
           className="hidden lg:block px-4 py-2 bg-orange-500 text-white rounded-full font-medium hover:bg-orange-600 transition"
@@ -116,7 +114,7 @@ const Navbar = () => {
           Contact Me
         </a>
 
-        {/* Mobile menu button */}
+        {/* Mobile Menu Button */}
         <button
           className="lg:hidden focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
@@ -139,23 +137,24 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Full-screen Mobile menu */}
+      {/* Mobile Fullscreen Menu */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-md flex flex-col items-center justify-center z-40"
+          className="fixed inset-0 bg-black/90 flex flex-col items-center justify-center z-50 backdrop-blur-lg"
         >
           <motion.ul
-            initial={{ y: -50 }}
+            initial={{ y: -30 }}
             animate={{ y: 0 }}
-            className="text-center space-y-6 text-xl"
+            transition={{ duration: 0.5 }}
+            className="text-center text-xl space-y-6 text-white"
           >
             <li>
               <a
                 href="#services"
-                className="hover:text-orange-500"
                 onClick={() => setIsOpen(false)}
+                className="hover:text-orange-500"
               >
                 Services
               </a>
@@ -163,53 +162,47 @@ const Navbar = () => {
             <li>
               <a
                 href="#work"
-                className="hover:text-orange-500"
                 onClick={() => setIsOpen(false)}
+                className="hover:text-orange-500"
               >
                 Work
               </a>
             </li>
             <li>
               <a
-                href="#contact"
-                className="hover:text-orange-500"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </a>
-            </li>
-            <li>
-              <a
                 href="#courses"
-                className="hover:text-orange-500"
                 onClick={() => setIsOpen(false)}
+                className="hover:text-orange-500"
               >
                 Online Courses
               </a>
             </li>
+            <li>
+              <a
+                href="#contact"
+                onClick={() => setIsOpen(false)}
+                className="hover:text-orange-500"
+              >
+                Contact
+              </a>
+            </li>
           </motion.ul>
 
-          {/* Contact & Availability */}
+          {/* Contact Info */}
           <motion.div
-            initial={{ scale: 0.95 }}
-            animate={{ scale: 1 }}
-            className="mt-8 text-center text-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mt-10 text-lg text-center text-gray-300"
           >
             <p>📞 +420 123 456 789</p>
             <p>✉️ email@example.com</p>
-            <p className="mt-2">
-              {status ? (
-                <span className="text-green-500">🟢 Online</span>
-              ) : (
-                <span className="text-red-500">🔴 Offline</span>
-              )}
-            </p>
           </motion.div>
 
-          {/* Close Menu Button */}
+          {/* Close Button */}
           <button
-            className="mt-8 px-6 py-2 bg-orange-500 text-white font-medium rounded-full hover:bg-orange-600"
             onClick={() => setIsOpen(false)}
+            className="mt-8 px-6 py-2 bg-orange-500 text-white rounded-full font-medium hover:bg-orange-600 transition"
           >
             Close Menu
           </button>

@@ -9,19 +9,19 @@ const testimonials = [
     name: "John Doe",
     role: "CEO, Tech Solutions",
     text: "Working with you was an absolute pleasure! Your attention to detail and ability to bring ideas to life exceeded all our expectations.",
-    avatar: "https://via.placeholder.com/100", // Replace with real images
+    avatar: "/imgs/6.jpg", // Replace with real images
   },
   {
     name: "Sarah Smith",
     role: "Marketing Director, Creative Agency",
     text: "Your creativity and technical expertise transformed our vision into a stunning reality. Highly recommend your services!",
-    avatar: "https://via.placeholder.com/100", // Replace with real images
+    avatar: "/imgs/75.jpg", // Replace with real images
   },
   {
     name: "Michael Brown",
     role: "Founder, StartupHub",
     text: "Exceptional collaboration from start to finish. Your dedication and professionalism are unmatched.",
-    avatar: "https://via.placeholder.com/100", // Replace with real images
+    avatar: "/imgs/82.jpg", // Replace with real images
   },
 ];
 

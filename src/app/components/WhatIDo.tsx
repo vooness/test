@@ -39,7 +39,10 @@ const WhatIDo = () => {
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 px-6 sm:px-12 bg-gradient-to-br from-[#0d1117] via-[#161b22] to-[#0f172a] text-white overflow-hidden">
+    <section
+      id="services" // Added this line
+      className="relative py-24 px-6 sm:px-12 bg-gradient-to-br from-[#0d1117] via-[#161b22] to-[#0f172a] text-white overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div

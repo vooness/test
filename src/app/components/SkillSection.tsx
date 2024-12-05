@@ -1,221 +1,139 @@
 "use client";
 
 import React from "react";
-import Slider from "react-slick";
+import { motion } from "framer-motion";
 import {
-  CircularProgressbarWithChildren,
-  buildStyles,
-} from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+  FaHtml5,
+  FaCss3Alt,
+  FaReact,
+  FaJsSquare,
+  FaPencilAlt,
+  FaVideo,
+  FaCameraRetro,
+} from "react-icons/fa";
+import { SiNextdotjs, SiDotnet, SiTailwindcss } from "react-icons/si";
 
 const skills = [
-  { name: "Web Development", value: 95 },
-  { name: "React.js", value: 90 },
-  { name: "Next.js", value: 85 },
-  { name: "Photoshop", value: 80 },
-  { name: "After Effects", value: 75 },
-  { name: "Tailwind CSS", value: 85 },
-  { name: ".NET Core", value: 80 },
-  { name: "Marketing & SEO", value: 70 },
+  { name: "HTML & CSS", value: 90, icon: <FaHtml5 /> },
+  { name: "React.js", value: 85, icon: <FaReact /> },
+  { name: "JavaScript", value: 80, icon: <FaJsSquare /> },
+  { name: "Next.js", value: 75, icon: <SiNextdotjs /> },
+  { name: "Graphic Design", value: 95, icon: <FaPencilAlt /> },
+  { name: "Video Editing", value: 90, icon: <FaVideo /> },
+  { name: ".NET Core", value: 80, icon: <SiDotnet /> },
+  { name: "Tailwind CSS", value: 85, icon: <SiTailwindcss /> },
+  { name: "Photography", value: 80, icon: <FaCameraRetro /> },
 ];
 
-const SkillSection = () => {
-  // React Slick slider settings
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 768, settings: { slidesToShow: 1 } },
-    ],
-    appendDots: (dots: React.ReactNode) => (
-      <div
-        style={{
-          marginTop: "-50px",
-          marginBottom: "20px",
-        }}
-      >
-        <ul style={{ margin: "0px" }}> {dots} </ul>
-      </div>
-    ),
-    customPaging: (i: number) => (
-      <div
-        style={{
-          width: "10px",
-          height: "10px",
-          backgroundColor: "#fff",
-          borderRadius: "50%",
-          display: "inline-block",
-        }}
-      ></div>
-    ),
-  };
-
-  // Framer Motion variants
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
-  const [ref, inView] = useInView({ triggerOnce: true });
-  const backgroundControls = useAnimation();
-
-  React.useEffect(() => {
-    if (inView) {
-      backgroundControls.start("animate");
-    }
-  }, [inView, backgroundControls]);
-
-  const backgroundVariants = {
-    initial: { background: "linear-gradient(270deg, #333, #333)" },
-    animate: {
-      background: [
-        "linear-gradient(270deg, #333, #333)",
-        "linear-gradient(270deg, #ff7300, #ff7300)",
-      ],
-      transition: { duration: 0.8, ease: "easeInOut" },
-    },
-  };
-
+const AboutMeSection = () => {
   return (
-    <section
-      ref={ref}
-      className="relative bg-gray-900 text-white py-20 px-6 overflow-hidden"
-    >
+    <section className="relative min-h-screen flex items-center justify-center px-6 py-16 bg-gradient-to-br from-gray-900 via-black to-gray-800 overflow-hidden">
+      {/* Red Glow - Top Left */}
       <motion.div
-        className="absolute inset-0 w-full h-full z-0 pointer-events-none"
-        variants={backgroundVariants}
-        initial="initial"
-        animate={backgroundControls}
+        className="absolute top-0 left-0 w-[300px] h-[300px] bg-red-500 rounded-full blur-[150px] opacity-30"
+        animate={{
+          x: [-10, 10, -10],
+          y: [-10, 10, -10],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       ></motion.div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-5xl font-extrabold text-center mb-6"
+      {/* Blue Glow - Bottom Right */}
+      <motion.div
+        className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-blue-500 rounded-full blur-[150px] opacity-30"
+        animate={{
+          x: [10, -10, 10],
+          y: [10, -10, 10],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      ></motion.div>
+
+      {/* Content Wrapper */}
+      <div className="relative z-10 max-w-7xl text-white text-center">
+        {/* Title Section */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-12"
         >
-          My Skills
-        </motion.h2>
+          <h2 className="text-5xl font-extrabold tracking-wide">
+            About Me
+            {/* Animated Underline */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="h-1 bg-blue-500 w-24 mx-auto mt-2 origin-left"
+            ></motion.div>
+          </h2>
+        </motion.div>
+
+        {/* Description */}
         <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-white text-lg text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-lg text-gray-300 max-w-3xl mx-auto mb-16 leading-relaxed"
         >
-          A showcase of my core competencies and expertise.
+          I’m a freelancer specializing in graphic design, video editing,
+          photography, and front-end development. I create engaging visual
+          content using Adobe tools, build websites with modern libraries like
+          React, Next.js, and Tailwind CSS, and have experience with .NET Core.
+          Remote-friendly and ready to collaborate!
         </motion.p>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
-          <Slider {...sliderSettings}>
-            {skills.map((skill, index) => (
-              <SkillItem key={index} skill={skill} />
-            ))}
-          </Slider>
-        </motion.div>
+        {/* Skills Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skills.map((skill, index) => (
+            <SkillCard key={index} skill={skill} />
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-const SkillItem = ({ skill }: { skill: { name: string; value: number } }) => {
-  const controls = useAnimation();
-  const [refItem, inViewItem] = useInView({
-    triggerOnce: true,
-    rootMargin: "0px 0px -50px 0px",
-  });
-
-  React.useEffect(() => {
-    if (inViewItem) {
-      controls.start("visible");
-    }
-  }, [inViewItem, controls]);
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { opacity: 1, scale: 1 },
-  };
-
-  const [progressValue, setProgressValue] = React.useState(0);
-
-  React.useEffect(() => {
-    if (inViewItem) {
-      const timeout = setTimeout(() => setProgressValue(skill.value), 300);
-      return () => clearTimeout(timeout);
-    }
-  }, [inViewItem, skill.value]);
-
+const SkillCard = ({
+  skill,
+}: {
+  skill: { name: string; value: number; icon: React.ReactNode };
+}) => {
   return (
     <motion.div
-      ref={refItem}
-      variants={itemVariants}
-      initial="hidden"
-      animate={controls}
-      className="flex justify-center"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className="flex flex-col items-center space-y-4"
     >
-      <div className="flex flex-col items-center">
-        <div className="w-40 h-40 mb-4">
-          <CircularProgressbarWithChildren
-            value={progressValue}
-            styles={buildStyles({
-              textColor: "#fff",
-              pathColor: "rgba(255, 255, 255, 1)",
-              trailColor: "#333",
-              textSize: "16px",
-            })}
-          >
-            <AnimatedNumber target={progressValue} />
-          </CircularProgressbarWithChildren>
-        </div>
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="font-semibold text-center"
-          style={{ fontSize: "1.5rem" }}
-        >
-          {skill.name}
-        </motion.p>
+      {/* Icon */}
+      <div className="text-4xl text-blue-500">{skill.icon}</div>
+      {/* Skill Name */}
+      <h4 className="text-lg font-medium">{skill.name}</h4>
+      {/* Progress Bar */}
+      <div className="relative w-full h-4 bg-gray-700 rounded-full overflow-hidden">
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: `${skill.value}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+          className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"
+        />
       </div>
     </motion.div>
   );
 };
 
-const AnimatedNumber = ({ target }: { target: number }) => {
-  const [value, setValue] = React.useState(0);
-
-  React.useEffect(() => {
-    let start = 0;
-    const duration = 1000;
-    const step = (timestamp: number) => {
-      if (!start) start = timestamp;
-      const progress = timestamp - start;
-      const percentage = Math.min((progress / duration) * target, target);
-      setValue(Math.floor(percentage));
-      if (progress < duration) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  }, [target]);
-
-  return <div className="text-white font-bold text-lg">{value}%</div>;
-};
-
-export default SkillSection;
+export default AboutMeSection;
